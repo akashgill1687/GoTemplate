@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Live Data APP</title>
+    <link rel="stylesheet" href="/static/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css" type="text/css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/tether/tether.min.js"></script>
+    <script src="/static/bootstrap-4.0.0-alpha.6-dist/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .card {
+            width: 50%;
+            margin: 30px;
+        }
+
+        table#data-table {
+            margin-bottom: 0;
+        }
+
+        .action {
+            width: 150px;
+        }
+
+        #submitform,
+        #deleteform {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h4 class="card-title">Monitoring Live Data App</h4>
+        <div id="list">
+            <table class="table" id="data-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{if .LiveData}}
+                    <tr>
+                        <td id="data">{{.LiveData}}</td>
+                        <td class="action">
+                            <form id="submitform" action="/submit/" method="POST">
+                                <input type="hidden" name="livedata" value={{.LiveData}}>
+                                <button type="submit" class="btn btn-success btn-sm" id="submit">Submit</button>
+                            </form>
+                            <form id="deleteform" action="/delete/" method="POST">
+                                <input type="hidden" name="authnum" value={{.LiveData}}>
+                                <button type="submit" class="btn btn-success btn-sm" id="delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{ else }}
+                    <tr>
+                        <td>No Live data at the moment</td>
+                    </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
